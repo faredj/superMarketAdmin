@@ -8,7 +8,6 @@ public class ChaineSM{
 	
 	public ChaineSM() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	public ChaineSM(String nomEnsigne, String formeJuridique, String typeActivite, List<SuperMarche> marchesEnsigne) {
