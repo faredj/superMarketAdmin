@@ -1,3 +1,4 @@
+package metiers;
 import java.util.*;
 
 public class Stock {
@@ -88,5 +89,16 @@ public class Stock {
 		}
 	}
 	
-	
+	public void modifierPrixProduit(String nom, Double newPrix){//modification du prix du produit selon le nom
+		Set<Produit> lp = produits.keySet();
+		boolean existEnStock = false;
+		for (Produit p : lp) {
+			if(p.getDesignation().equals(nom)){
+				existEnStock = true;
+				p.setPrix(newPrix);
+			}
+		}
+		if(!existEnStock)
+			System.out.println("Le produit n'existe pas en stock");
+	}
 }
