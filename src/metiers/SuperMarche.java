@@ -48,7 +48,7 @@ public abstract class SuperMarche{
  * @param chaienSM La chaine des supermarchés
  * @param adresse L'adresse des supermarchés
  * @param stock Le stock des supermarchés
- * @param Vente La vente des produits des supermarchés
+ * @param vente La vente des produits des supermarchés
  */	
 	public SuperMarche(Integer idSM, ChaineSM chaienSM, String adresse, Stock stock, Vente vente) {
 		this.idSM = idSM;
@@ -108,7 +108,7 @@ public abstract class SuperMarche{
 	}
 /**
  * Met à jour du Stock du supermarché
- * @param Stock
+ * @param stock
  */
 	public void setStock(Stock stock) {
 		this.stock = stock;
@@ -158,8 +158,7 @@ public abstract class SuperMarche{
 	}
 	
 /**
- *  Met à jour de la liste des produits périmes en Rayons
- * @return
+ *  Retourne la liste des produits périmes en Rayons
  */
 	public abstract Set<Produit> produitPerimesEnRayon();//chercher les produits perimes dans les rayons
 /**
@@ -250,8 +249,8 @@ public abstract class SuperMarche{
 /**
  * Retourne les ventes par intervale de temps du supermarché
  * @param lp liste de toutes les ventes
- * @param date vente (debut)
- * @param date vente (fin)
+ * @param dateDebut date debut de vente
+ * @param dateFin date fin de vente
  * @return Les produits par interval de temps
  * @throws ParseException
  */

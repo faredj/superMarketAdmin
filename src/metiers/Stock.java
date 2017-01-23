@@ -91,7 +91,7 @@ public class Stock {
 	}
 /**
  * Initialise les produits du stock puis sort quelques produits vers les etalages et à la fin effectue quelque vente
- * @param Type de produit 
+ * @param type type de produit 
  */	
 	public void initListProduit(TypeGeneral type){
 		switch (type) {
@@ -278,7 +278,7 @@ public class Stock {
 	}
 /**
  * Chercher un produit dans le stock par désignation
- * @param des: Designation du produit
+ * @param des Designation du produit
  * @return les produits recherchés dans le stock selon la désignation
  */	
 	public Produit chercherProduitEnStockByDes(String des){
@@ -292,7 +292,7 @@ public class Stock {
 	}
 /**
  * Retourne retourne le nombre de produit en stock selon la désignation
- * @param s: désignation du produit
+ * @param des désignation du produit
  * @return la quantité des produits dans le stock selon son désignation
  */	
 	public Integer returnNbProduitByDes(String des){

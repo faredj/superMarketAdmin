@@ -157,7 +157,7 @@ private Integer idRayon;
 	}
 /**
  * 	Retourne retEtalagesOfRayon du rayon
- * @param la liste des etalages
+ * @param le liste des etalages
  * @return les  étalages du rayon
  */
 	public List<Etalage> retEtalagesOfRayon(List<Etalage> le){

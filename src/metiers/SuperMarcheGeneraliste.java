@@ -24,7 +24,7 @@ public class SuperMarcheGeneraliste extends SuperMarche{
  * @param chaineSM La chaine des supermarchés
  * @param adresse L'adresse du supermarché
  * @param stock Le stock du supermarché
- * @vente Vente du produit du supermarché
+ * @param vente du produit du supermarché
  * @param rayon Les rayon des supermarchés
  */
 	public SuperMarcheGeneraliste(Integer idSM, ChaineSM chaineSM, String adresse, Stock stock, Vente vente, List<Rayon> rayon) {
@@ -42,7 +42,7 @@ public class SuperMarcheGeneraliste extends SuperMarche{
 	}
 /**
  *  Met à jour de la liste des rayons du supermarché généraliste
- * @param Rayon
+ * @param rayons
  */
 	public void setRayons(List<Rayon> rayons) {
 		this.rayons = rayons;
@@ -76,7 +76,7 @@ public class SuperMarcheGeneraliste extends SuperMarche{
 	}
 
 /**
- * @param prixMax Le prix minimum du produit du SupeMarchéGénéraliste
+ * @param prixMin Le prix minimum du produit du SupeMarchéGénéraliste
  * @return La liste des produits en Rayon dans le supermarché generaliste par prix minimum
  */
 	public Set<Produit> produitEnRayonParPrixMin(Double prixMin) {//chercher liste produit dans le SM par "PRIX MIN"

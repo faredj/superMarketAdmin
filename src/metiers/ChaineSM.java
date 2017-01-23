@@ -88,7 +88,7 @@ public class ChaineSM{
 	}
 /**
  * Méthode pour construire un supermarchés généraliste
- * @param adresseSM: l'adressre du supermarché généraliste
+ * @param adresseSM l'adressre du supermarché généraliste
  */
 	public void construireGeneralisteSM(String adresseSM){//construction SM génétaliste + un stock + tout les rayons
 		SupermacheDAO superMarcheDao = new SupermacheDAO();
@@ -294,7 +294,7 @@ public class ChaineSM{
 	}
 /**
  *  Retourne nbProduitStockParNom de la chaineSM
- * @param nom: le nom du produit 
+ * @param nom le nom du produit 
  * @return nombre de produit dans tout les stock de l'enseigne par nom
  */	
 	public Integer nbProduitStockParNom(String nom){
