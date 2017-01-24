@@ -33,7 +33,6 @@ public class PromotionDAO implements DaoTemplate<Integer, Promotion>{
 				idPromo = keys.getInt(1);
 			}
 			ps.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -55,7 +54,6 @@ public class PromotionDAO implements DaoTemplate<Integer, Promotion>{
 			ps.setInt(4, promo.getIdPromotion());
 			ps.executeUpdate();
 			ps.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -75,7 +73,6 @@ public class PromotionDAO implements DaoTemplate<Integer, Promotion>{
 			ps.setInt(1, promo.getIdPromotion());
 			ps.executeUpdate();
 			ps.close();
-			conn.close();
 			exec = 1;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -111,7 +108,6 @@ public class PromotionDAO implements DaoTemplate<Integer, Promotion>{
 				recupSM.close();
 			}
 			selPromo.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

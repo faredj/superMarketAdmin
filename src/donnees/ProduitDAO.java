@@ -47,7 +47,6 @@ public class ProduitDAO implements DaoTemplate<Integer, Produit>{
 				idPr = keys.getInt(1);
 			}
 			ps.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -87,7 +86,6 @@ public class ProduitDAO implements DaoTemplate<Integer, Produit>{
 			ps.executeUpdate();
 			
 			ps.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -107,7 +105,6 @@ public class ProduitDAO implements DaoTemplate<Integer, Produit>{
 			ps.setInt(1, produit.getIdProduit());
 			ps.executeUpdate();
 			ps.close();
-			conn.close();
 			exec = 1;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -198,7 +195,6 @@ public class ProduitDAO implements DaoTemplate<Integer, Produit>{
 				listeProduit.add(produit);
 			}
 			selProduit.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -28,7 +28,6 @@ public class EtalageDAO implements DaoTemplate<Integer, Etalage>{
 				idEt = keys.getInt(1);
 			}
 			ps.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -48,7 +47,6 @@ public class EtalageDAO implements DaoTemplate<Integer, Etalage>{
 			ps.setInt(2, etalage.getIdEtalage());
 			ps.executeUpdate();
 			ps.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -68,7 +66,6 @@ public class EtalageDAO implements DaoTemplate<Integer, Etalage>{
 			ps.setInt(1, etalage.getIdEtalage());
 			ps.executeUpdate();
 			ps.close();
-			conn.close();
 			exec = 1;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -121,7 +118,6 @@ public class EtalageDAO implements DaoTemplate<Integer, Etalage>{
 				recupR.close();
 			}
 			selEtalage.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

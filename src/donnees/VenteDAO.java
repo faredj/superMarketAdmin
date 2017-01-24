@@ -30,7 +30,6 @@ public class VenteDAO implements DaoTemplate<Integer, Vente>{
 				idVe = keys.getInt(1);
 			}
 			ps.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -50,7 +49,6 @@ public class VenteDAO implements DaoTemplate<Integer, Vente>{
 			ps.setInt(2, vente.getIdVente());
 			ps.executeUpdate();
 			ps.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -70,7 +68,6 @@ public class VenteDAO implements DaoTemplate<Integer, Vente>{
 			ps.setInt(1, vente.getIdVente());
 			ps.executeUpdate();
 			ps.close();
-			conn.close();
 			exec = 1;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -106,7 +103,6 @@ public class VenteDAO implements DaoTemplate<Integer, Vente>{
 				recupSM.close();
 			}
 			selVente.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
