@@ -159,18 +159,28 @@ public abstract class SuperMarche{
 	
 /**
  *  Retourne la liste des produits périmes en Rayons
+ *  @return renvoie la liste des produits périmés
  */
-	public abstract Set<Produit> produitPerimesEnRayon();//chercher les produits perimes dans les rayons
+	public List<Produit> produitPerimes() throws ParseException{
+		List<Produit> lp = new ArrayList<Produit>();
+		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+		for (Produit produit : this.getStock().getProduits()) {
+			if(produit.getType().equals(TypeGeneral.ALIMENTAIRE) || produit.getType().equals(TypeGeneral.HYGIENEBEAUTE))
+				if(df.parse(produit.getDatePeremption()).before(new Date()))
+					lp.add(produit);
+		}
+		return lp;
+	}
 /**
  * Retourne produitSelonDateEntreStock du supermarché
  * @param date Date d'entrée du produit en stock
  * @return les produits selon leurs date d'entrée en stock
  */
-	public Set<Produit> produitSelonDateEntreStock(Date date){//retourner les produit selon leurs date d'entre en stock
+	public List<Produit> produitSelonDateEntreStock(String date){//retourner les produit selon leurs date d'entre en stock
 		return this.getStock().getProduits()
 				   .stream()
-				   .filter(p->p.getDatePeremption().equals(date))
-				   .collect(Collectors.toSet());
+				   .filter(p->p.getDateEntreStock().equals(date))
+				   .collect(Collectors.toList());
 	}
 /**
  * 	Retourne  le stock du supermarchés
@@ -213,18 +223,57 @@ public abstract class SuperMarche{
 				 .collect(Collectors.toList());
 	}
 
-/**
- * Chercher la liste des produit dans le superMarché par "PRIX MAX"
- * @param prixMax le prix maximun des produits dans le rayon
- * @return Liste des produits qui ont le prix maximum dans le supermarché
- */
-	public abstract Set<Produit> produitEnRayonParPrixMax(Double prixMax);//chercher liste produit dans le SM par "PRIX MAX"
-/**
- * Chercher liste produit dans le SM par "PRIX MIN"
- * @param prixMin le prix minimum des produits dans le rayon
- * @return Liste des produits qui ont le prix minimum dans le supermarché
- */
-	public abstract Set<Produit> produitEnRayonParPrixMin(Double prixMin);//chercher liste produit dans le SM par "PRIX MIN"
+	/**
+	 * @param lr liste de rayon du superrmarché
+	 * @param prixMax Le prix maximum du produit du SupeMarchéGénéraliste
+	 * @return La liste des produits en Rayon dans le supermarché generaliste par prix maximum
+	 */
+		public List<Produit> produitEnRayonsParPrixMax(List<Rayon> lr,Double prixMax) {//chercher liste produit dans le SM par "PRIX MAX"
+			return lr.stream()
+					.map(r->r.getEtalages())
+					.flatMap(r2->r2.stream().map(e->e.getProduits()))
+					.flatMap(p->p.stream().filter(p2->p2.getPrix().compareTo(prixMax) < 0))
+					.collect(Collectors.toList());
+		}
+
+	/**
+	 * @param lr liste de rayon du superrmarché
+	 * @param prixMin Le prix minimum du produit du SupeMarchéGénéraliste
+	 * @return La liste des produits en Rayon dans le supermarché generaliste par prix minimum
+	 */
+		public List<Produit> produitEnRayonsParPrixMin(List<Rayon> lr, Double prixMin) {//chercher liste produit dans le SM par "PRIX MIN"
+			return lr.stream()
+					.map(r->r.getEtalages())
+					.flatMap(r2->r2.stream().map(e->e.getProduits()))
+					.flatMap(p->p.stream().filter(p2->p2.getPrix().compareTo(prixMin) > 0))
+					.collect(Collectors.toList());
+		}
+		/**
+		 * * Retourne produitEnRayonParPrixMax des supermarcheSpécialiste
+		 * @param rayon du supemarché
+		 * @param prixMax Le prix maximum du produit
+		 * @return Les produits en rayon des supermarchés Spécialiste selon leurs "prixMax"
+		 */
+			public List<Produit> produitEnRayonParPrixMax(Rayon rayon, Double prixMax) {
+				return rayon.getEtalages()
+						.stream()
+						.map(e->e.getProduits())
+						.flatMap(p->p.stream().filter(p2->p2.getPrix().compareTo(prixMax) < 0))
+						.collect(Collectors.toList());
+			}
+		/**
+		 *  Retourne produitEnRayonParPrixMin des supermarcheSpécialiste
+		 * @param rayon du supemarché
+		 * @param prixMin Le prix minimum du produit
+		 * @return Les produits en rayon des supermarchés Spécialiste selon leurs "prixMin"
+		 */
+			public List<Produit> produitEnRayonParPrixMin(Rayon rayon, Double prixMin) {
+				return rayon.getEtalages()
+						.stream()
+						.map(e->e.getProduits())
+						.flatMap(p->p.stream().filter(p2->p2.getPrix().compareTo(prixMin) > 0))
+						.collect(Collectors.toList());
+			}
 /**
  * Retourne promotions du supermarché
  * @param lr liste de promotions des produits du supermarché

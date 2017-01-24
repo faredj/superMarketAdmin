@@ -128,7 +128,7 @@ public class ChaineSM{
 		rayons.add(rayonAl);
 		sm.setRayons(rayons);
 		st.initListProduit(TypeGeneral.ALIMENTAIRE);
-		System.out.println("    ...Rrayon Alimentaire créé");
+		System.out.println("    ...Rayon Alimentaire créé");
 		
 		RayonElectromenager rayonEl = new RayonElectromenager();
 		rayonEl.setSuperMarche(sm);

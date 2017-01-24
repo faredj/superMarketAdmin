@@ -47,11 +47,11 @@ public class SuperMarcheGeneraliste extends SuperMarche{
 	public void setRayons(List<Rayon> rayons) {
 		this.rayons = rayons;
 	}
-	@Override
 /**
  * @param nom Le nom du produit du supermarché généraliste
  * @return La liste des produits dans le supermarché generaliste par nom
  */
+	@Override
 	public Integer nbProduitEnRayonParNom(String nom) {//chercher liste produit dans le SM par "NOM"
 		return this.getRayons()
 				.stream()
@@ -62,31 +62,7 @@ public class SuperMarcheGeneraliste extends SuperMarche{
 				.sum();
 	}
 
-/**
- * @param prixMax Le prix maximum du produit du SupeMarchéGénéraliste
- * @return La liste des produits en Rayon dans le supermarché generaliste par prix maximum
- */
-	public Set<Produit> produitEnRayonParPrixMax(Double prixMax) {//chercher liste produit dans le SM par "PRIX MAX"
-		return this.getRayons()
-				.stream()
-				.map(r->r.getEtalages())
-				.flatMap(r2->r2.stream().map(e->e.getProduits()))
-				.flatMap(p->p.stream().filter(p2->p2.getPrix() <= prixMax))
-				.collect(Collectors.toSet());
-	}
 
-/**
- * @param prixMin Le prix minimum du produit du SupeMarchéGénéraliste
- * @return La liste des produits en Rayon dans le supermarché generaliste par prix minimum
- */
-	public Set<Produit> produitEnRayonParPrixMin(Double prixMin) {//chercher liste produit dans le SM par "PRIX MIN"
-		return this.getRayons()
-				.stream()
-				.map(r->r.getEtalages())
-				.flatMap(r2->r2.stream().map(e->e.getProduits()))
-				.flatMap(p->p.stream().filter(p2->p2.getPrix() >= prixMin))
-				.collect(Collectors.toSet());
-	}
 /**
  * @param rayon Le rayon du SupeMarchéGénéraliste
  * @param prixMin le prix minimum du produit du SupeMarchéGénéraliste
@@ -100,20 +76,6 @@ public class SuperMarcheGeneraliste extends SuperMarche{
 				.flatMap(r3->r3.stream().map(e->e.getProduits()))
 				.flatMap(p->p.stream().filter(p2->p2.getPrix() <= prixMin))
 				.collect(Collectors.toSet());
-	}
-
-	@Override
-/**
- * @return renvoi la liste des produit périmés 
- */
-	public Set<Produit> produitPerimesEnRayon() {
-		return null;
-//		return this.getRayons()
-//				.stream()
-//				.map(r->r.getEtalages())
-//				.flatMap(r2->r2.stream().map(e->e.getProduits()))
-//				.flatMap(p->p.stream().filter(p2->p2.getDatePeremption().after(new Date())))
-//				.collect(Collectors.toSet());
 	}
 
 }

@@ -1,7 +1,5 @@
 package metiers;
 
-import java.util.*;
-import java.util.stream.Collectors;
 /**
  * Cette classe représente les supermarchés spécialistes
  * @author soria
@@ -50,12 +48,12 @@ public class SuperMarcheSpecialiste extends SuperMarche{
 		this.rayons = rayons;
 	}
 
-	@Override
 /**
  * Retourne nbProduitEnRayonParNom des supermarcheSpécialiste
  * @param nom Le nom du produit
  * @return La quantité des produits en stock des supermarchés Spécialiste selon leurs "nom"
  */
+	@Override
 	public Integer nbProduitEnRayonParNom(String nom) {
 		return this.getRayons().getEtalages()
 				.stream().map(e->e.getProduits())
@@ -63,44 +61,5 @@ public class SuperMarcheSpecialiste extends SuperMarche{
 				.mapToInt(Produit::getQuantite)
 				.sum();
 	}
-/**
- * * Retourne produitEnRayonParPrixMax des supermarcheSpécialiste
- * @param prixMax Le prix maximum du produit
- * @return Les produits en rayon des supermarchés Spécialiste selon leurs "prixMax"
- */
-	@Override
-	public Set<Produit> produitEnRayonParPrixMax(Double prixMax) {
-		return this.getRayons().getEtalages()
-				.stream()
-				.map(e->e.getProduits())
-				.flatMap(p->p.stream().filter(p2->p2.getPrix() <= prixMax))
-				.collect(Collectors.toSet());
-	}
-/**
- *  Retourne produitEnRayonParPrixMin des supermarcheSpécialiste
- * @param prixMin Le prix minimum du produit
- * @return Les produits en rayon des supermarchés Spécialiste selon leurs "prixMin"
- */
-	@Override
-	public Set<Produit> produitEnRayonParPrixMin(Double prixMin) {
-		return this.getRayons().getEtalages()
-				.stream()
-				.map(e->e.getProduits())
-				.flatMap(p->p.stream().filter(p2->p2.getPrix() >= prixMin))
-				.collect(Collectors.toSet());
-	}
-/**
- * Liste des produits du supermarché spécialiste
- * @return null
- */
-	@Override
-	public Set<Produit> produitPerimesEnRayon() {
-		return null;
-//		return this.getRayons().getEtalages()
-//				.stream()
-//				.map(e->e.getProduits())
-//				.flatMap(p->p.stream().filter(p2->p2.getDatePeremption().after(new Date())))
-//				.collect(Collectors.toSet());
-	}
-	
+
 }

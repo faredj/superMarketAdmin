@@ -6,16 +6,16 @@ package metiers;
  */
 public enum ProduitsHygieneBeaute {
 	
-	Savon("Savon", new Double(1.30), new Integer(50), "2017-08-16"),
-	GelDouche("Gel Douche", new Double(2.50), new Integer(50), "2017-05-10"),
-	BrosseADent("Brosse à Dents", new Double(3.80), new Integer(50), "2017-04-26"),
-	CremeLavante("Créme Lavante", new Double(2.60), new Integer(50), "2017-05-17"),
-	MousseARaser("Mousse à Raser", new Double(6.50), new Integer(50), "2017-06-19"),
-	Deodorant("Deodorant", new Double(5.60), new Integer(50), "2017-19-16"),
-	Parfum("Parfum", new Double(3.50), new Integer(50), "2017-12-19"),
-	Shampoing("Shampoing", new Double(8.80), new Integer(50), "2017-11-18"),
-	Maquillage("Maquillage", new Double(3.30), new Integer(50), "2017-05-23"),
-	EauDeToilette("Eau de Toilette", new Double(4.70), new Integer(50), "2017-08-16");
+	Savon("Savon", new Double(1.30), new Integer(50), "08-1-2017"),
+	GelDouche("Gel Douche", new Double(2.50), new Integer(50), "05-10-2017"),
+	BrosseADent("Brosse à Dents", new Double(3.80), new Integer(50), "04-2-2017"),
+	CremeLavante("Créme Lavante", new Double(2.60), new Integer(50), "05-1-2017"),
+	MousseARaser("Mousse à Raser", new Double(6.50), new Integer(50), "06-1-2017"),
+	Deodorant("Deodorant", new Double(5.60), new Integer(50), "19-1-2017"),
+	Parfum("Parfum", new Double(3.50), new Integer(50), "12-1-2017"),
+	Shampoing("Shampoing", new Double(8.80), new Integer(50), "11-3-2017"),
+	Maquillage("Maquillage", new Double(3.30), new Integer(50), "05-2-2017"),
+	EauDeToilette("Eau de Toilette", new Double(4.70), new Integer(50), "08-1-2017");
 /**
  * La désignation  du produit hygiéne et beauté du supermarché n'est pas modifiable
  * @see ProduitsHygieneBeaute#ProduitsHygieneBeaute(String, Double, Integer, String)

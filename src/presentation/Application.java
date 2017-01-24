@@ -18,6 +18,8 @@ public static void main(String[] args) throws Exception {
 	VenteDAO venteDao = new VenteDAO();
 	PromotionDAO promoDao = new PromotionDAO();
 	DecimalFormat df = new DecimalFormat("#.##");
+	SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
 	
 	System.out.println("------------------------------------------------------------------------------");
 	System.out.println("                       >>Gestion de Supermarchés v1.0<<");
@@ -1056,14 +1058,117 @@ public static void main(String[] args) throws Exception {
 									case "10":
 										String opProduit;
 										System.out.println("   - Rechercher des produits :");
-										System.out.println("            1 > Rechercher les produits périmés dans le stock");
-										System.out.println("            2 > Rechercher les produits par interval de prix");
-
-										System.out.println("            5 > Retour");
+										System.out.println("            1 > Produits périmés");
+										System.out.println("            2 > Produits par prix > prix min");
+										System.out.println("            3 > Produits par prix < prix max");
+										System.out.println("            4 > Produits par désignation");
+										System.out.println("            5 > Produits selon date d'entré en stock");
+										System.out.println("            6 > Retour");
 										System.out.print("        Action : ");
 										do  {
 											opProduit = sc.nextLine();
-										}while((!(opProduit.equals("1") || opProduit.equals("2") || opProduit.equals("3")|| opProduit.equals("4")|| opProduit.equals("5"))));
+										}while((!(opProduit.equals("1") || opProduit.equals("2") || opProduit.equals("3") || opProduit.equals("4") || opProduit.equals("5") || opProduit.equals("6"))));
+										while(opProduit.equals("1") || opProduit.equals("2") || opProduit.equals("3")|| opProduit.equals("4") || opProduit.equals("5")){
+											
+											switch (opProduit) {
+											case "1":
+												System.out.println("    - Produits périmés : ");
+												if(superMarcheToEdit.produitPerimes().size() > 0){
+													for (Produit produit : superMarcheToEdit.produitPerimes()) {
+														System.out.println("  - Dés : "+produit.getDesignation()+" | Type : "+produit.getType().getTypeName()+" | Qt : "+produit.getQuantite()+" | Date de péremption : "+produit.getDatePeremption());
+													}
+												}else{
+													System.out.println("    Aucun produit n'est périmés !");
+												}
+												break;
+											case "2":
+												System.out.println("    - Produits par prix > prix min : ");
+												Double prixMin = 0.0;
+												while (true) {
+												    System.out.print("    Prix min : ");
+												    try {
+												    	prixMin = Double.parseDouble(sc.next());
+												        break;
+												    } catch (NumberFormatException ignore) {
+												    }
+												}
+												List<Produit> listeProduitParPrixMin = superMarcheToEdit.produitEnRayonsParPrixMin(listeRayonOfSm, prixMin);
+												if(listeProduitParPrixMin.size() > 0){
+													for (Produit produit : listeProduitParPrixMin) {
+														System.out.println("  - Dés : "+produit.getDesignation()+"  |  Prix : "+produit.getPrix()+" | Type : "+produit.getType().getTypeName()+" | Qt : "+produit.getQuantite());
+													}
+												}else{
+													System.out.println("    Aucun produit n'a un prix supérieur à "+prixMin+" !");
+												}
+												break;
+											case "3":
+												System.out.println("    - Produits par prix < prix max : ");
+												Double prixMax = 0.0;
+												while (true) {
+												    System.out.print("    Prix max : ");
+												    try {
+												    	prixMax = Double.parseDouble(sc.next());
+												        break;
+												    } catch (NumberFormatException ignore) {
+												    }
+												}
+												List<Produit> listeProduitParPrixMax = superMarcheToEdit.produitEnRayonsParPrixMax(listeRayonOfSm, prixMax);
+												if(listeProduitParPrixMax.size() > 0){
+													for (Produit produit : listeProduitParPrixMax) {
+														System.out.println("  - Dés : "+produit.getDesignation()+"  |  Prix : "+produit.getPrix()+" | Type : "+produit.getType().getTypeName()+" | Qt : "+produit.getQuantite());
+													}
+												}else{
+													System.out.println("    Aucun produit n'a un prix inférieur à "+prixMax+" !");
+												}
+												break;
+											case "4":
+												System.out.println("    - Produits par désignation : ");
+												String desPrToSer = "";
+												Produit pSer = null;
+													System.out.print("    Désignation du produit :");
+													desPrToSer = sc.nextLine();
+													desPrToSer = desPrToSer.toLowerCase();
+													if(stockOfSm.ifProduitExist(desPrToSer)){
+														pSer = stockOfSm.chercherProduitEnStockByDes(desPrToSer);
+														System.out.println("      Prix : "+pSer.getPrix()+"  Quantité : "+pSer.getQuantite()+"  Type : "+pSer.getType().getTypeName()+"  Date peremption : "+pSer.getDatePeremption());
+													}else
+														System.out.println("    >>Produit inexistant !");
+													
+												break;
+											case "5":
+												System.out.println("    - Produits selon date d'entré en stock : ");
+												boolean validDatePer = false;
+												String dateEntreStock = "";
+												while (!validDatePer) {
+												    System.out.print("   Saisissez une date : ");
+												    dateEntreStock = sc.nextLine();
+													validDatePer = isValidDate(dateEntreStock);
+												}
+										        String dateEntre = new SimpleDateFormat("dd-MM-yyyy").format(dateFormat.parse(dateEntreStock));
+												List<Produit> listeProduitParDate = superMarcheToEdit.produitSelonDateEntreStock(dateEntre);
+												if(listeProduitParDate.size() > 0){
+													for (Produit produit : listeProduitParDate) {
+														System.out.println("  - Dés : "+produit.getDesignation()+" | Type : "+produit.getType().getTypeName()+" | Qt : "+produit.getQuantite());
+													}
+												}else{
+													System.out.println("    Aucun produit n'a entré en stock dans cette date !");
+												}
+												break;
+											default:
+												break;
+											}
+											System.out.println("   - Rechercher des produits :");
+											System.out.println("            1 > Produits périmés");
+											System.out.println("            2 > Produits par prix > prix min");
+											System.out.println("            3 > Produits par prix < prix max");
+											System.out.println("            4 > Produits par désignation");
+											System.out.println("            5 > Produits selon date d'entré en stock");
+											System.out.println("            6 > Retour");
+											System.out.print("        Action : ");
+											do  {
+												opProduit = sc.nextLine();
+											}while((!(opProduit.equals("1") || opProduit.equals("2") || opProduit.equals("3") || opProduit.equals("4") || opProduit.equals("5") || opProduit.equals("6"))));
+										}
 										break;
 									default:break;
 									}
@@ -1867,7 +1972,119 @@ public static void main(String[] args) throws Exception {
 										}
 										break;
 									case "10":
-										
+										String opProduit;
+										System.out.println("   - Rechercher des produits :");
+										System.out.println("            1 > Produits périmés");
+										System.out.println("            2 > Produits par prix > prix min");
+										System.out.println("            3 > Produits par prix < prix max");
+										System.out.println("            4 > Produits par désignation");
+										System.out.println("            5 > Produits selon date d'entré en stock");
+										System.out.println("            6 > Retour");
+										System.out.print("        Action : ");
+										do  {
+											opProduit = sc.nextLine();
+										}while((!(opProduit.equals("1") || opProduit.equals("2") || opProduit.equals("3") || opProduit.equals("4") || opProduit.equals("5") || opProduit.equals("6"))));
+										while(opProduit.equals("1") || opProduit.equals("2") || opProduit.equals("3")|| opProduit.equals("4") || opProduit.equals("5")){
+											
+											switch (opProduit) {
+											case "1":
+												System.out.println("    - Produits périmés : ");
+												if(superMarcheToEdit.produitPerimes().size() > 0){
+													for (Produit produit : superMarcheToEdit.produitPerimes()) {
+														System.out.println("  - Dés : "+produit.getDesignation()+" | Type : "+produit.getType().getTypeName()+" | Qt : "+produit.getQuantite()+" | Date de péremption : "+produit.getDatePeremption());
+													}
+												}else{
+													System.out.println("    Aucun produit n'est périmés !");
+												}
+												break;
+											case "2":
+												System.out.println("    - Produits par prix > prix min : ");
+												Double prixMin = 0.0;
+												while (true) {
+												    System.out.print("    Prix min : ");
+												    try {
+												    	prixMin = Double.parseDouble(sc.next());
+												        break;
+												    } catch (NumberFormatException ignore) {
+												    }
+												}
+												List<Produit> listeProduitParPrixMin = superMarcheToEdit.produitEnRayonParPrixMin(rayonOfSm, prixMin);
+												if(listeProduitParPrixMin.size() > 0){
+													for (Produit produit : listeProduitParPrixMin) {
+														System.out.println("  - Dés : "+produit.getDesignation()+"  |  Prix : "+produit.getPrix()+" | Type : "+produit.getType().getTypeName()+" | Qt : "+produit.getQuantite());
+													}
+												}else{
+													System.out.println("    Aucun produit n'a un prix supérieur à "+prixMin+" !");
+												}
+												break;
+											case "3":
+												System.out.println("    - Produits par prix < prix max : ");
+												Double prixMax = 0.0;
+												while (true) {
+												    System.out.print("    Prix max : ");
+												    try {
+												    	prixMax = Double.parseDouble(sc.next());
+												        break;
+												    } catch (NumberFormatException ignore) {
+												    }
+												}
+												List<Produit> listeProduitParPrixMax = superMarcheToEdit.produitEnRayonParPrixMax(rayonOfSm, prixMax);
+												if(listeProduitParPrixMax.size() > 0){
+													for (Produit produit : listeProduitParPrixMax) {
+														System.out.println("  - Dés : "+produit.getDesignation()+"  |  Prix : "+produit.getPrix()+" | Type : "+produit.getType().getTypeName()+" | Qt : "+produit.getQuantite());
+													}
+												}else{
+													System.out.println("    Aucun produit n'a un prix inférieur à "+prixMax+" !");
+												}
+												break;
+											case "4":
+												System.out.println("    - Produits par désignation : ");
+												String desPrToSer = "";
+												Produit pSer = null;
+													System.out.print("    Désignation du produit :");
+													desPrToSer = sc.nextLine();
+													desPrToSer = desPrToSer.toLowerCase();
+													if(stockOfSm.ifProduitExist(desPrToSer)){
+														pSer = stockOfSm.chercherProduitEnStockByDes(desPrToSer);
+														System.out.println("      Prix : "+pSer.getPrix()+"  Quantité : "+pSer.getQuantite()+"  Type : "+pSer.getType().getTypeName()+"  Date peremption : "+pSer.getDatePeremption());
+													}else
+														System.out.println("    >>Produit inexistant !");
+													
+												break;
+											case "5":
+												System.out.println("    - Produits selon date d'entré en stock : ");
+												boolean validDatePer = false;
+												String dateEntreStock = "";
+												while (!validDatePer) {
+												    System.out.print("   Saisissez une date : ");
+												    dateEntreStock = sc.nextLine();
+													validDatePer = isValidDate(dateEntreStock);
+												}
+										        String dateEntre = new SimpleDateFormat("dd-MM-yyyy").format(dateFormat.parse(dateEntreStock));
+												List<Produit> listeProduitParDate = superMarcheToEdit.produitSelonDateEntreStock(dateEntre);
+												if(listeProduitParDate.size() > 0){
+													for (Produit produit : listeProduitParDate) {
+														System.out.println("  - Dés : "+produit.getDesignation()+" | Type : "+produit.getType().getTypeName()+" | Qt : "+produit.getQuantite());
+													}
+												}else{
+													System.out.println("    Aucun produit n'a entré en stock dans cette date !");
+												}
+												break;
+											default:
+												break;
+											}
+											System.out.println("   - Rechercher des produits :");
+											System.out.println("            1 > Produits périmés");
+											System.out.println("            2 > Produits par prix > prix min");
+											System.out.println("            3 > Produits par prix < prix max");
+											System.out.println("            4 > Produits par désignation");
+											System.out.println("            5 > Produits selon date d'entré en stock");
+											System.out.println("            6 > Retour");
+											System.out.print("        Action : ");
+											do  {
+												opProduit = sc.nextLine();
+											}while((!(opProduit.equals("1") || opProduit.equals("2") || opProduit.equals("3") || opProduit.equals("4") || opProduit.equals("5") || opProduit.equals("6"))));
+										}
 										break;
 									default:break;
 									}
