@@ -30,7 +30,6 @@ public class SupermacheDAO implements DaoTemplate<Integer, SuperMarche>{
 				idSm = keys.getInt(1);
 			}
 			ps.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -52,7 +51,6 @@ public class SupermacheDAO implements DaoTemplate<Integer, SuperMarche>{
 			ps.setInt(4, sm.getIdSM());
 			ps.executeUpdate();
 			ps.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -72,7 +70,6 @@ public class SupermacheDAO implements DaoTemplate<Integer, SuperMarche>{
 			ps.setInt(1, sm.getIdSM());
 			ps.executeUpdate();
 			ps.close();
-			conn.close();
 			exec = 1;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -115,7 +112,6 @@ public class SupermacheDAO implements DaoTemplate<Integer, SuperMarche>{
 				}
 			}
 			selSuperM.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

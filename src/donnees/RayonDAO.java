@@ -30,7 +30,6 @@ public class RayonDAO implements DaoTemplate<Integer, Rayon>{
 				key = keys.getInt(1);
 			}
 			ps.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -51,7 +50,6 @@ public class RayonDAO implements DaoTemplate<Integer, Rayon>{
 			ps.setInt(3, rayon.getIdRayon());
 			ps.executeUpdate();
 			ps.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -71,7 +69,6 @@ public class RayonDAO implements DaoTemplate<Integer, Rayon>{
 			ps.setInt(1, rayon.getIdRayon());
 			ps.executeUpdate();
 			ps.close();
-			conn.close();
 			exec = 1;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -133,7 +130,6 @@ public class RayonDAO implements DaoTemplate<Integer, Rayon>{
 				recupSM.close();
 			}
 			selRayon.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

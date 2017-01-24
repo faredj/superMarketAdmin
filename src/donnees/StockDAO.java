@@ -31,7 +31,6 @@ public class StockDAO implements DaoTemplate<Integer, Stock>{
 				idSt = keys.getInt(1);
 			}
 			ps.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -50,7 +49,6 @@ public class StockDAO implements DaoTemplate<Integer, Stock>{
 			ps.setInt(1, stock.getSuperMarche().getIdSM());
 			ps.executeUpdate();
 			ps.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -70,7 +68,6 @@ public class StockDAO implements DaoTemplate<Integer, Stock>{
 			ps.setInt(1, stock.getIdStock());
 			ps.executeUpdate();
 			ps.close();
-			conn.close();
 			exec = 1;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -106,7 +103,6 @@ public class StockDAO implements DaoTemplate<Integer, Stock>{
 				recupSM.close();
 			}
 			selStock.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

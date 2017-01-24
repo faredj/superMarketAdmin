@@ -36,7 +36,6 @@ public class ChaineSmDAO implements DaoTemplate<Integer, ChaineSM>{
 				ps.close();
 			}
 			verifSM.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -56,7 +55,6 @@ public class ChaineSmDAO implements DaoTemplate<Integer, ChaineSM>{
 			ps.setInt(2, chaineSM.getidEnseigne());
 			ps.executeUpdate();
 			ps.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -76,7 +74,6 @@ public class ChaineSmDAO implements DaoTemplate<Integer, ChaineSM>{
 			ps.setInt(1, chaineSM.getidEnseigne());
 			ps.executeUpdate();
 			ps.close();
-			conn.close();
 			exec = 1;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -100,7 +97,6 @@ public class ChaineSmDAO implements DaoTemplate<Integer, ChaineSM>{
 				listeChaine.add(chaine);
 			}
 			selChaine.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
